@@ -32,15 +32,16 @@
   --sev-low: #4fc3e8;
   --sev-info: #97a0b5;
 
-  /* Categorical chart palette */
-  --cat-1: #4fc3e8;
-  --cat-2: #f5b942;
-  --cat-3: #46c08d;
-  --cat-4: #b98bf0;
-  --cat-5: #f0797f;
+  /* Categorical chart-series palette — validated (dataviz six-checks) against the
+     dark chart surface #0e1219; assign in fixed order, never cycle. */
+  --cat-1: #2f9fca;
+  --cat-2: #b8801d;
+  --cat-3: #2ea173;
+  --cat-4: #9c66e0;
+  --cat-5: #dc5761;
   --cat-6: #6e8bf0;
-  --cat-7: #e8c24f;
-  --cat-8: #58c7b0;
+  --cat-7: #ab8a20;
+  --cat-8: #3aa694;
 
   /* Typography */
   --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;

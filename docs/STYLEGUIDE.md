@@ -61,11 +61,14 @@ cockpit is a dark room); do not add a light variant.
 | low | `--sev-low` | `#4FC3E8` |
 | info | `--sev-info` | `#97A0B5` |
 
-### Categorical chart palette (event series)
-Ordered for maximum separation on the dark ground; colourblind-aware sequencing.
+### Categorical chart-series palette (multi-series marks)
+Validated with the dataviz six-checks (`validate_palette.js`, dark mode, surface
+`#0E1219`): passes lightness band, chroma floor, CVD separation, normal-vision
+floor, and contrast. Assign in fixed order, never cycled. Distinct from the bright
+semantic/brand colours above, which are for UI, status, and single-series traces.
 ```
---cat-1 #4FC3E8  --cat-2 #F5B942  --cat-3 #46C08D  --cat-4 #B98BF0
---cat-5 #F0797F  --cat-6 #6E8BF0  --cat-7 #E8C24F  --cat-8 #58C7B0
+--cat-1 #2F9FCA  --cat-2 #B8801D  --cat-3 #2EA173  --cat-4 #9C66E0
+--cat-5 #DC5761  --cat-6 #6E8BF0  --cat-7 #AB8A20  --cat-8 #3AA694
 ```
 
 ## Typography
