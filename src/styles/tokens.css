@@ -1,0 +1,80 @@
+/* Design tokens — single source of truth is docs/STYLEGUIDE.md.
+   Dark-only "Signal Desk" system. Do not fork these values in components. */
+:root {
+  color-scheme: dark;
+
+  /* Surfaces & structure */
+  --bg: #0b0e14;
+  --bg-panel: #131722;
+  --bg-panel-2: #1a2030;
+  --bg-inset: #0e1219;
+  --border: #232b3b;
+  --border-strong: #2e3850;
+
+  /* Text */
+  --text: #e4e8f1;
+  --text-dim: #97a0b5;
+  --text-faint: #616b82;
+
+  /* Signal & semantic */
+  --signal: #f5b942;
+  --signal-dim: #8a6a28;
+  --cyan: #4fc3e8;
+  --pos: #46c08d;
+  --neg: #f0555f;
+  --warn: #f5883e;
+  --anomaly: #b98bf0;
+
+  /* Severity */
+  --sev-critical: #f0555f;
+  --sev-high: #f5883e;
+  --sev-medium: #f5b942;
+  --sev-low: #4fc3e8;
+  --sev-info: #97a0b5;
+
+  /* Categorical chart palette */
+  --cat-1: #4fc3e8;
+  --cat-2: #f5b942;
+  --cat-3: #46c08d;
+  --cat-4: #b98bf0;
+  --cat-5: #f0797f;
+  --cat-6: #6e8bf0;
+  --cat-7: #e8c24f;
+  --cat-8: #58c7b0;
+
+  /* Typography */
+  --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", Menlo, Consolas, monospace;
+
+  --fs-xs: 11px;
+  --fs-sm: 12.5px;
+  --fs-base: 14px;
+  --fs-md: 16px;
+  --fs-lg: 20px;
+  --fs-xl: 26px;
+  --fs-2xl: 34px;
+
+  /* Spacing */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+
+  /* Radii */
+  --r-xs: 4px;
+  --r-sm: 6px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-pill: 999px;
+
+  /* Shadows */
+  --shadow-panel: 0 1px 0 rgba(255, 255, 255, 0.02) inset, 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+  --shadow-pop: 0 12px 40px -12px rgba(0, 0, 0, 0.7);
+  --glow-signal: drop-shadow(0 0 6px rgba(245, 185, 66, 0.45));
+}
