@@ -9,7 +9,8 @@ export default defineConfig({
   base: './',
   plugins: [react(), viteSingleFile()],
   worker: {
-    format: 'es',
+    // Classic/iife inline worker is the most robust from file:// across browsers.
+    format: 'iife',
   },
   build: {
     target: 'es2020',
