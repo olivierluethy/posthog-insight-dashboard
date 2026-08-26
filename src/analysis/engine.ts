@@ -14,6 +14,7 @@ import { computeEventFrequency } from './frequency'
 import { computeForecast } from './forecast'
 import { computeInsights } from './insights'
 import { computeKpis } from './kpis'
+import { computeMetrics } from './metrics'
 import { computeRetention } from './retention'
 import { computeSegmentation } from './segmentation'
 import { computeTimeseries } from './timeseries'
@@ -69,9 +70,14 @@ export async function runEngine(
   partial('errors', errors)
   await yieldToLoop()
 
-  progress('Fitting forecast', 0.86)
+  progress('Fitting forecast', 0.84)
   const forecast = computeForecast(rows, idx)
   partial('forecast', forecast)
+  await yieldToLoop()
+
+  progress('Aligning metric matrix', 0.89)
+  const metrics = computeMetrics(rows, idx)
+  partial('metrics', metrics)
   await yieldToLoop()
 
   progress('Segmenting users', 0.93)
@@ -102,6 +108,7 @@ export async function runEngine(
     retention,
     errors,
     forecast,
+    metrics,
     segmentation,
     insights,
     elapsedMs: performanceNow() - started,

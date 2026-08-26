@@ -286,6 +286,52 @@ export interface Insight {
   module: string
 }
 
+// ---- Unified metric matrix (comparison / relationships / goals) -----------
+
+export type MetricKey =
+  | 'newUsers'
+  | 'activeUsers'
+  | 'installs'
+  | 'uninstalls'
+  | 'netGrowth'
+  | 'events'
+  | 'errors'
+
+/** One aligned daily metric, with both the per-day level and its running total,
+ *  plus a linear fit on whichever of the two goals/forecasts should run on. */
+export interface MetricSeries {
+  key: MetricKey
+  label: string
+  /** true when a target refers to a running total (installs) rather than a
+   *  daily level (active users). Determines which series the fit runs on. */
+  cumulative: boolean
+  unit: string
+  /** short accent colour token, e.g. 'var(--cat-1)'. */
+  color: string
+  /** dense per-day values. */
+  daily: TimePoint[]
+  /** dense running total. */
+  cumSeries: TimePoint[]
+  /** sum of daily over the whole range (== last cumulative). */
+  total: number
+  /** latest value of the series a goal is measured against. */
+  current: number
+  /** slope/day of the fitted (cumulative or level) series. */
+  ratePerDay: number
+  ratePerWeek: number
+  r2: number
+  peakDaily: number
+  meanDaily: number
+}
+
+export interface MetricMatrix {
+  startT: number
+  endT: number
+  /** dense day-bucket starts shared by every series. */
+  days: number[]
+  series: MetricSeries[]
+}
+
 // ---- Top-level analysis payload ------------------------------------------
 
 export interface AnalysisResult {
@@ -298,6 +344,7 @@ export interface AnalysisResult {
   retention: RetentionResult
   errors: ErrorResult
   forecast: ForecastResult
+  metrics: MetricMatrix
   segmentation: SegmentationResult
   insights: Insight[]
   /** wall-clock ms the engine took. */
