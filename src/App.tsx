@@ -20,8 +20,11 @@ import {
 import { Header } from './components/Header'
 import { Dropzone } from './components/Dropzone'
 import { ProgressView } from './components/ProgressView'
+import { Capabilities } from './components/Capabilities'
 import { InsightsPanel } from './components/InsightsPanel'
 import { Overview } from './components/Overview'
+import { MetricExplorer } from './components/MetricExplorer'
+import { GoalLab } from './components/GoalLab'
 import { HistoryDiff } from './components/HistoryDiff'
 import { EventFrequency } from './components/EventFrequency'
 import { Timeseries } from './components/Timeseries'
@@ -223,6 +226,7 @@ export function App() {
               </div>
             )}
 
+            <Capabilities />
             {view.insights && <InsightsPanel insights={view.insights} />}
             {view.kpis && view.completeness && (
               <Overview kpis={view.kpis} completeness={view.completeness} diff={diffMap} />
@@ -247,6 +251,8 @@ export function App() {
             {view.retention && <Retention r={view.retention} />}
             {view.errors && <Errors e={view.errors} />}
             {view.forecast && <Forecast f={view.forecast} />}
+            {view.metrics && <MetricExplorer m={view.metrics} />}
+            {view.metrics && <GoalLab m={view.metrics} />}
             {view.segmentation && <Segmentation s={view.segmentation} />}
             {view.classes && (
               <AdvancedPanel classes={view.classes} config={config} onApply={applyConfig} busy={reanalyzing} />

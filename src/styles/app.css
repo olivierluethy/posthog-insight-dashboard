@@ -860,6 +860,216 @@
   }
 }
 
+/* ---- Metric Explorer ---- */
+.seg-toggle-btn {
+  background: transparent;
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 6px 12px;
+  font-size: var(--fs-sm);
+}
+.seg-toggle-btn.on {
+  background: color-mix(in srgb, var(--signal) 16%, transparent);
+  border-color: color-mix(in srgb, var(--signal) 45%, var(--border));
+  color: var(--signal);
+}
+.series-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.metric-tiles {
+  margin-top: var(--sp-4);
+}
+.rel-block {
+  margin-top: var(--sp-5);
+}
+.rel-table {
+  margin-top: var(--sp-2);
+}
+.rel-strength {
+  color: var(--text-faint);
+  font-size: var(--fs-xs);
+}
+
+/* ---- Goal Lab ---- */
+.goal-terms {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+}
+.goal-term {
+  background: var(--bg-panel-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: var(--sp-3) var(--sp-4);
+}
+.goal-term-head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+.goal-term-reach {
+  color: var(--text-faint);
+  font-size: var(--fs-sm);
+}
+.goal-target {
+  width: 140px;
+}
+.goal-remove {
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-faint);
+  border-radius: var(--r-sm);
+  width: 28px;
+  height: 28px;
+  font-size: var(--fs-md);
+  line-height: 1;
+}
+.goal-remove:hover {
+  color: var(--neg);
+  border-color: color-mix(in srgb, var(--neg) 40%, var(--border));
+}
+.goal-term-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+  margin-top: var(--sp-3);
+  font-size: var(--fs-sm);
+  color: var(--text-dim);
+}
+.goal-term-stats b {
+  color: var(--text);
+  font-weight: 600;
+}
+.goal-days {
+  color: var(--text-faint);
+}
+.goal-ok {
+  color: var(--pos);
+}
+.goal-bad {
+  color: var(--neg);
+}
+.goal-controls {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+}
+.goal-deadline {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.goal-explain {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-5);
+  margin: var(--sp-4) 0;
+}
+.goal-explain-col .eyebrow {
+  margin-bottom: var(--sp-2);
+}
+.goal-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+.goal-list li {
+  padding-left: var(--sp-4);
+  position: relative;
+}
+.goal-list li::before {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.goal-list-bad li::before {
+  content: '✕';
+  color: var(--neg);
+}
+.goal-list-ok li::before {
+  content: '→';
+  color: var(--pos);
+}
+.goal-scenario {
+  margin-top: var(--sp-5);
+}
+.goal-scenario-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-2);
+}
+.goal-scenario-out {
+  font-size: var(--fs-sm);
+  color: var(--text-dim);
+  line-height: 1.5;
+  margin-bottom: var(--sp-3);
+}
+.goal-scenario-out b {
+  color: var(--text);
+}
+
+/* ---- Capabilities strip (feature visibility / jump-nav) ---- */
+.capabilities {
+  border-left: 2px solid var(--signal);
+}
+.capabilities-head {
+  margin-bottom: var(--sp-4);
+}
+.capabilities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--sp-2);
+}
+.cap-chip {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-start;
+  text-align: left;
+  background: var(--bg-panel-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: var(--sp-2) var(--sp-3);
+  cursor: pointer;
+  transition: border-color 120ms ease, background 120ms ease;
+}
+.cap-chip:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-panel);
+}
+.cap-chip:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 2px;
+}
+.cap-chip-label {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--text);
+}
+.cap-chip-hint {
+  font-size: var(--fs-xs);
+  color: var(--text-faint);
+}
+
 /* ---- Responsive ---- */
 @media (max-width: 1080px) {
   .kpi-grid,
@@ -870,7 +1080,8 @@
   .seg-grid,
   .seg-wide,
   .anomaly-cols,
-  .retention-top {
+  .retention-top,
+  .goal-explain {
     grid-template-columns: 1fr;
   }
   .dropzone-foot {
