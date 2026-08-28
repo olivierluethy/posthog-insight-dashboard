@@ -69,7 +69,12 @@ function useHeaderHeight() {
 
 /** Scroll-spy: reports which sections exist and which one is currently in view.
  *  `signature` changes whenever the set of mounted sections changes (they stream
- *  in), re-running the observer against the freshly-mounted DOM. */
+ *  in), re-collecting the freshly-mounted DOM.
+ *
+ *  Active = the last section whose top has crossed a single trigger line just
+ *  below the header. Reading real positions each frame (rather than reacting to a
+ *  wide IntersectionObserver band) means the highlight never skips several
+ *  sections at once and always matches what is actually under the line. */
 function useScrollSpy(signature: string, headerH: number) {
   const [present, setPresent] = useState<string[]>([])
   const [active, setActive] = useState<string | null>(null)
@@ -81,27 +86,38 @@ function useScrollSpy(signature: string, headerH: number) {
     setPresent(els.map((e) => e.id))
     if (els.length === 0) return
 
-    const visible = new Set<string>()
-    const recompute = () => {
-      // Topmost (document-order) section currently crossing the trigger band wins.
-      const next = NAV_IDS.find((id) => visible.has(id))
-      if (next) setActive(next)
+    const line = headerH + 16 // trigger line, in px from the top of the viewport
+    let raf = 0
+
+    const compute = () => {
+      raf = 0
+      // Sections stack vertically, so tops are monotonic in document order:
+      // walk down and keep the last one whose top has passed the trigger line.
+      let current = els[0].id
+      for (const el of els) {
+        if (el.getBoundingClientRect().top - line <= 0.5) current = el.id
+        else break
+      }
+      // At the very bottom of the page the last section can never reach the line —
+      // force it so the final entry is reachable.
+      const atBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2
+      if (atBottom) current = els[els.length - 1].id
+      setActive(current)
     }
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) visible.add(e.target.id)
-          else visible.delete(e.target.id)
-        }
-        recompute()
-      },
-      // Trigger line sits just under the header; a section is "active" from when
-      // its top passes that line until its top leaves the top ~45% of the viewport.
-      { rootMargin: `-${headerH + 12}px 0px -55% 0px`, threshold: 0 },
-    )
-    els.forEach((el) => io.observe(el))
-    return () => io.disconnect()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(compute)
+    }
+
+    compute()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      if (raf) cancelAnimationFrame(raf)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
   }, [signature, headerH])
 
   return { present, active }
