@@ -21,6 +21,7 @@ import { Header } from './components/Header'
 import { Dropzone } from './components/Dropzone'
 import { ProgressView } from './components/ProgressView'
 import { Capabilities } from './components/Capabilities'
+import { QuickNav } from './components/QuickNav'
 import { InsightsPanel } from './components/InsightsPanel'
 import { Overview } from './components/Overview'
 import { MetricExplorer } from './components/MetricExplorer'
@@ -181,6 +182,9 @@ export function App() {
 
   const view = result ?? (partial as Partial<AnalysisResult>)
   const showDashboard = phase === 'analyzing' || phase === 'ready'
+  // Changes whenever the set of mounted sections changes (they stream in),
+  // so the Quick-Nav re-scans the DOM and picks up newly-rendered sections.
+  const navSignature = `${phase}:${Object.keys(view).length}:${currentSnap ? 1 : 0}`
 
   return (
     <div className="app">
@@ -214,6 +218,8 @@ export function App() {
 
         {showDashboard && (
           <div className="dashboard">
+            <QuickNav signature={navSignature} />
+            <div className="dashboard-content">
             {phase === 'analyzing' && (
               <div className="analyze-strip">
                 <div className="analyze-strip-track">
@@ -263,6 +269,7 @@ export function App() {
                 <span className="spinner" /> Streaming results — KPIs first, heavier modules as they finish…
               </div>
             )}
+            </div>
           </div>
         )}
       </main>
